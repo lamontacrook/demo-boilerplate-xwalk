@@ -1,4 +1,4 @@
-main .hero-container > div {
+/* main .hero-container > div {
   max-width: unset;
 }
 
@@ -31,4 +31,169 @@ main .hero-container {
   object-fit: cover;
   width: 100%;
   height: 100%;
+} */
+
+main .section.hero-container>div {
+  max-width: var(--hero-width);
+  margin: auto;
+}
+
+main .section.hero-container {
+  background-color: transparent;
+  padding: 0;
+}
+
+main .hero-wrapper {
+  min-height: var(--hero-height);
+  width: var(--hero-width);
+}
+
+main .hero {
+  position: var(--hero-position);
+  width: var(--hero-width);
+  background-color: var(--hero-background-color);
+  z-index: -2;
+  min-height: var(--hero-height);
+}
+
+main .hero .hero-content {
+  position: absolute;
+  left: var(--hero-content-left);
+  top: var(--hero-content-top);
+  transform: var(--hero-content-transform);
+  width: var(--hero-content-width);
+  min-width: var(--hero-content-min-width);
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: column;
+  background-color: var(--hero-content-background-color);
+  align-content: space-between;
+  z-index: 3;
+}
+
+main .hero .hero-content h1,
+main .hero .hero-content h2 {
+  color: var(--hero-content-h1);
+  line-height: 39px;
+  font-size: var(--heading-font-size-l);
+}
+
+main .hero .hero-content h2 {
+  font-size: var(--heading-font-size-m);
+  color: var(--hero-content-h2);
+}
+
+main .hero .hero-content p {
+  color: var(--hero-content-p);
+  font-size: var(--body-font-size-xs);
+  font-weight: 400;
+  padding: 0 0 0 1px;
+}
+
+main .hero picture {
+  object-fit: cover;
+  box-sizing: border-box;
+  min-width: 439px;
+  background-color: white;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -2;
+  max-width: var(--hero-width);
+}
+
+main .hero img {
+  object-fit: cover;
+  width: 100%;
+  max-width: var(--hero-width);
+  min-height: var(--hero-height);
+}
+
+main .hero .gradient {
+  position: absolute;
+  top: 0;
+  width: var(--gradient-background-width);
+  height: 100%;
+  z-index: 2;
+  background: var(--gradient-background-color);
+}
+
+main .hero .gradient.toright {
+  right: unset;
+  left: 0;
+  background: linear-gradient(90deg, var(--gradient-background-start-color) 0%, var(--gradient-background-end-color) 40%, rgba(162 207 66 / 0%) 90%);
+}
+
+main .hero .gradient.toleft {
+  right: 0;
+  left: unset;
+  background: linear-gradient(270deg, var(--gradient-background-start-color) 0%, var(--gradient-background-end-color) 40%, rgba(162 207 66 / 0%) 90%);
+}
+
+@media (min-width: 600px) {
+  main .section.hero-container {
+    background-color: transparent;
+    padding: 0;
+  }
+}
+
+@media (min-width: 900px) {
+  main .hero .hero-content h1,
+  main .hero .hero-content h2,
+  main .hero .hero-content p {
+    margin: 10px 0 12px;
+    line-height: 40px;
+    font-size: var(--heading-font-size-l);
+  }
+
+  main .hero .hero-content h2 {
+    font-size: var(--heading-font-size-m);
+  }
+}
+
+@media (min-width: 1024px) {
+  main .hero>div {
+    padding: 60px 0 0;
+    display: flex;
+    flex-direction: row;
+    max-width: var(--hero-image-width);
+    margin: auto;
+    background-color: transparent;
+    min-height: 500px;
+    gap: 53px;
+    z-index: 1;
+    position: relative;
+  }
+
+  main .hero>div>picture {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: -1;
+  }
+
+  main .hero .hero-content p {
+    line-height: 26px;
+    font-size: var(--body-font-size-xs);
+    font-weight: 400;
+  }
+
+  main .hero img {
+    object-fit: cover;
+    height: 100%;
+    min-height: var(--hero-height);
+  }
+
+  main .hero .hero-content h1,
+  main .hero .hero-content h2 {
+    line-height: 50px;
+    font-size: var(--heading-font-size-xl);
+  }
+
+  main .hero .hero-content h2 {
+    font-size: var(--heading-font-size-l);
+  }
 }
