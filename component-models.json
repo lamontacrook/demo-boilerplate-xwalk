@@ -106,10 +106,6 @@
           {
             "name": "Highlight",
             "value": "highlight"
-          },
-          {
-            "name": "Gradient",
-            "value": "gradient",
           }
         ]
       }
