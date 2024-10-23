@@ -110,10 +110,6 @@
           {
             "name": "Gradient",
             "value": "gradient",
-          },
-          {
-            "name": "Page Margins",
-            "value": "page-margins"
           }
         ]
       }
