@@ -2,6 +2,7 @@
   "mappings": [
     "/content/demo/:/",
     "/content/demo/configuration:/.helix/config.json",
+    "/content/demo/headers:/.helix/headers.json",
     "/content/demo/metadata:/metadata.json"
   ]
 }
