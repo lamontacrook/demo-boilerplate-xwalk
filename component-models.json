@@ -158,6 +158,13 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      },
+      {
+        "component": "custom-asset-one",
+        "name": "custom-asset-one",
+        "value": "",
+        "label": "custom-asset-one",
+        "valueType": "string"
       }
     ]
   },
