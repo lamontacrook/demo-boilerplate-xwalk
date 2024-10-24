@@ -141,7 +141,12 @@ export default async function decorate(block) {
       navSections.querySelectorAll(':scope > ul > li').forEach((navSection) => {
         if (navSection.querySelector('ul')) {
           navSection.classList.add('nav-drop');
-          const key = navSection.textContent.split('\n').shift().toLowerCase().replace(' ', '-');
+          // const key = navSection.textContent.split('\n').shift().toLowerCase().replace(' ', '-');
+          let key = navSection.querySelector('p');
+          key = key.textContent.trim();
+          key = key.toLowerCase();
+          key = key.replace(' ', '-');
+
           const leftSpan = document.createElement('span');
           leftSpan.classList.add('left-span');
           leftSpan.append(panels[key]);
