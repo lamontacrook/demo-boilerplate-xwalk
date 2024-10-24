@@ -160,7 +160,7 @@
         "valueType": "string"
       },
       {
-        "component": "custom-asset-one",
+        "component": "custom-asset-namespace:custom-asset",
         "name": "custom-asset-one",
         "value": "",
         "label": "custom-asset-one",
