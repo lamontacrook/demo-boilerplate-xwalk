@@ -164,7 +164,8 @@
         "name": "custom-asset-one",
         "value": "",
         "label": "custom-asset-one",
-        "valueType": "string"
+        "valueType": "string",
+        "configUrl": "https://main--demo-boilerplate-xwalk--lamontacrook.hlx.page/tools/assets-selector/image.config.json"
       }
     ]
   },
