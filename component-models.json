@@ -146,13 +146,6 @@
     "id": "card",
     "fields": [
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
         "component": "richtext",
         "name": "text",
         "value": "",
@@ -161,9 +154,9 @@
       },
       {
         "component": "custom-asset-namespace:custom-asset",
-        "name": "custom-asset-one",
+        "name": "image",
         "value": "",
-        "label": "custom-asset-one",
+        "label": "Image",
         "valueType": "string",
         "configUrl": "https://main--demo-boilerplate-xwalk--lamontacrook.hlx.page/tools/assets-selector/image.config.json"
       }
