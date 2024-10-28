@@ -2,7 +2,7 @@ import {
   sampleRUM,
   loadHeader,
   loadFooter,
-  decorateButtons,
+  decorateButtons as libDecorateButtons,
   decorateIcons,
   decorateSections,
   decorateBlocks,
@@ -10,6 +10,7 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
+  createOptimizedPicture as libCreateOptimizedPicture,
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -71,6 +72,178 @@ function buildAutoBlocks() {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
   }
+}
+
+/*
+  * Appends query params to a URL
+  * @param {string} url The URL to append query params to
+  * @param {object} params The query params to append
+  * @returns {string} The URL with query params appended
+  * @private
+  * @example
+  * appendQueryParams('https://example.com', { foo: 'bar' });
+  * // returns 'https://example.com?foo=bar'
+*/
+function appendQueryParams(url, params) {
+  const { searchParams } = url;
+  params.forEach((value, key) => {
+    searchParams.set(key, value);
+  });
+  url.search = searchParams.toString();
+  return url.toString();
+}
+
+export function createOptimizedVideo(asset, autoplay = '', playsinline = '', loop = '') {
+  const img = asset.querySelector('[data-asset-type="video"]');
+  const src = img.alt;
+  const ext = src.split('.').pop();
+
+  asset.innerHTML = `<video loop='${loop}' muted='' playsInline='${playsinline}' autoplay='${autoplay}' controls='' poster='${img.src}'>
+    <source data-src='${src}' type='video/${ext}' />
+  </video>`;
+
+  const video = asset.querySelector('video');
+  const source = asset.querySelector('video > source');
+
+  source.src = source.dataset.src;
+
+  video.load();
+  video.addEventListener('loadeddata', () => {
+    video.setAttribute('autoplay', true);
+    video.setAttribute('data-loaded', true);
+    video.play();
+  });
+}
+
+const getDefaultEmbed = (url) => `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
+    <iframe src="${url.href}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen=""
+      scrolling="no" allow="encrypted-media" title="Content from ${url.hostname}" loading="lazy">
+    </iframe>
+  </div>`;
+
+export function createOptimizedVideoEmbed(asset) {
+  const img = asset.querySelector('[data-asset-type="video"]');
+  const parent = asset.parentElement;
+  const iframe = getDefaultEmbed(new URL(img.alt));
+  const wrapper = document.createElement('div');
+  wrapper.className = 'dm-placeholder';
+  wrapper.innerHTML = iframe;
+  parent.innerHTML = wrapper.outerHTML;
+}
+
+/**
+ * Creates an optimized picture element for an image.
+ * If the image is not an absolute URL, it will be passed to libCreateOptimizedPicture.
+ * @param {string} src The image source URL
+ * @param {string} alt The image alt text
+ * @param {boolean} eager Whether to load the image eagerly
+ * @param {object[]} breakpoints The breakpoints to use
+ * @returns {Element} The picture element
+ *
+ */
+export function createOptimizedPicture(src, alt = '', eager = false, breakpoints = [{ media: '(min-width: 600px)', width: '2000', format: 'webply' }, { width: '750', format: 'webply' }]) {
+  const isAbsoluteUrl = /^https?:\/\//i.test(src);
+
+  // Fallback to createOptimizedPicture if src is not an absolute URL
+  if (!isAbsoluteUrl) return libCreateOptimizedPicture(src, alt, eager, breakpoints);
+
+  const url = new URL(src);
+  const picture = document.createElement('picture');
+  const { pathname } = url;
+  const ext = pathname.substring(pathname.lastIndexOf('.') + 1);
+
+  // webp
+  breakpoints.forEach((br) => {
+    const source = document.createElement('source');
+    if (br.media) source.setAttribute('media', br.media);
+    delete br.media;
+    source.setAttribute('type', 'image/webp');
+    const searchParams = new URLSearchParams(br);
+    source.setAttribute('srcset', appendQueryParams(url, searchParams));
+    picture.appendChild(source);
+  });
+
+  // fallback
+  breakpoints.forEach((br, i) => {
+    const searchParams = new URLSearchParams({ width: br.width, format: ext });
+
+    if (i < breakpoints.length - 1) {
+      const source = document.createElement('source');
+      if (br.media) source.setAttribute('media', br.media);
+      source.setAttribute('srcset', appendQueryParams(url, searchParams));
+      picture.appendChild(source);
+    } else {
+      const img = document.createElement('img');
+      img.setAttribute('loading', eager ? 'eager' : 'lazy');
+      img.setAttribute('alt', alt);
+      picture.appendChild(img);
+      img.setAttribute('src', appendQueryParams(url, searchParams));
+    }
+  });
+  return picture;
+}
+
+function whatBlockIsThis(element) {
+  let currentElement = element;
+
+  while (currentElement.parentElement) {
+    if (currentElement.parentElement.classList.contains('block')) return currentElement.parentElement;
+    currentElement = currentElement.parentElement;
+    if (currentElement.classList.length > 0) return currentElement.classList[0];
+  }
+  return null;
+}
+
+/**
+ * Builds all synthetic blocks in a container element.
+ * @param {Element} main The container element
+ */
+function decorateButtons(main) {
+  main.querySelectorAll('img').forEach((img) => {
+    let altT = decodeURIComponent(img.alt);
+
+    if (altT && altT.includes('https://delivery-')) {
+      try {
+        altT = JSON.parse(altT);
+        const { altText, deliveryUrl } = altT;
+        const url = new URL(deliveryUrl);
+        const imgName = url.pathname.substring(url.pathname.lastIndexOf('/') + 1);
+        const block = whatBlockIsThis(img);
+        const bp = getMetadata(block);
+        let breakpoints = [{ media: '(min-width: 600px)', width: '2000' }, { width: '750' }];
+        if (bp) {
+          const bps = bp.split('|');
+          const bpS = bps.map((b) => b.split(',').map((p) => p.trim()));
+          breakpoints = bpS.map((n) => {
+            const obj = {};
+            n.forEach((i) => {
+              const t = i.split(/:(.*)/s);
+              obj[t[0].trim()] = t[1].trim();
+            });
+            return obj;
+          });
+        } else {
+          const format = getMetadata(imgName.toLowerCase().replace('.', '-'));
+          const formats = format.split('|');
+          const formatObj = {};
+          formats.forEach((i) => {
+            const [a, b] = i.split('=');
+            formatObj[a] = b;
+          });
+          breakpoints = breakpoints.map((n) => (
+            { ...n, ...formatObj }
+          ));
+        }
+        const picture = createOptimizedPicture(deliveryUrl, altText, false, breakpoints);
+        img.parentElement.replaceWith(picture);
+      } catch (error) {
+        img.setAttribute('style', 'border:5px solid red');
+        img.setAttribute('data-asset-type', 'video');
+        img.setAttribute('title', 'Update block to render video.');
+      }
+    }
+  });
+  libDecorateButtons(main);
 }
 
 /**
