@@ -8,11 +8,5 @@
     "maxWidth": 2000,
     "minHeight": 500,
     "maxHeight": 2000
-  },
-  "copyMode": [
-    {
-      "mimeType": "image/*",
-      "value": "use-alt-text"
-    }
-  ]
+  }
 }
