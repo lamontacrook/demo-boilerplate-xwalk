@@ -10,10 +10,9 @@
  * governing permissions and limitations under the License.
  */
 
-:root {
+ :root {
   /* colors */
-  --link-color: #333;
-  /* link color */
+  --link-color: #333;  /* link color */
   --link-hover-color: #000;
   --link-selected-color: #666;
   --background-color: #fff;
@@ -102,6 +101,16 @@
   --columns-image-div-height: 100vh;
 }
 
+body.margins {
+  --hero-width: var(--nav-max-width);
+  --highlight-width: var(--section-max-width);
+  --columns-width: var(--section-max-width);
+}
+
+body.scrollable {
+  --hero-position: relative;
+}
+
 @font-face {
   font-family: roboto-fallback;
   size-adjust: 100.06%;
@@ -109,7 +118,7 @@
   src: local('Arial');
 }
 
-@media (width >=900px) {
+@media (min-width: 900px) {
   :root {
     --heading-font-size-xxl: 60px;
     --heading-font-size-xl: 48px;
@@ -131,69 +140,54 @@ body {
 }
 
 body.appear {
-  display: block;
+  display: unset;
 }
 
 header {
   height: var(--nav-height);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3,
+h4, h5, h6 {
   font-family: var(--heading-font-family);
   font-weight: 600;
   line-height: 1.25;
   margin-top: 1em;
-  margin-bottom: 0.5em;
+  margin-bottom: .5em;
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
-h1 {
-  font-size: var(--heading-font-size-xxl);
+h1 { font-size: var(--heading-font-size-xxl) }
+
+h2 { 
+  font-size: var(--heading-font-size-l); 
+  font-weight:500;
 }
 
-h2 {
-  font-size: var(--heading-font-size-xl);
-}
+h3 { font-size: var(--heading-font-size-l) }
+h4 { font-size: var(--heading-font-size-m) }
+h5 { font-size: var(--heading-font-size-s) }
+h6 { font-size: var(--heading-font-size-xs) }
 
-h3 {
-  font-size: var(--heading-font-size-l);
-}
-
-h4 {
-  font-size: var(--heading-font-size-m);
-}
-
-h5 {
-  font-size: var(--heading-font-size-s);
-}
-
-h6 {
-  font-size: var(--heading-font-size-xs);
-}
-
-p,
-dl,
-ol,
-ul,
-pre,
-blockquote {
+p, dl, ol, ul, pre, blockquote {
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
-code,
-pre {
+hr {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  border: 0;
+  border-bottom: 1px solid var(--overlay-background-color);
+}
+
+code, pre, samp {
   font-family: var(--fixed-font-family);
   font-size: var(--body-font-size-s);
 }
 
-code {
-  padding: 0.125em;
+code, samp {
+  padding: .125em;
 }
 
 pre {
@@ -201,14 +195,13 @@ pre {
 }
 
 main pre {
-  background-color: var(--light-color);
+  background-color: var(--overlay-background-color);
   padding: 1em;
-  border-radius: 0.25em;
+  border-radius: .25em;
   overflow-x: auto;
   white-space: pre;
 }
 
-/* links */
 a:any-link {
   color: var(--link-color);
   text-decoration: none;
@@ -220,8 +213,7 @@ a:hover {
 }
 
 /* buttons */
-a.button:any-link,
-button {
+a.button:any-link, button {
   font-family: var(--body-font-family);
   display: inline-block;
   box-sizing: border-box;
@@ -230,7 +222,7 @@ button {
   padding: 5px 30px;
   text-align: center;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
   color: var(--background-color);
   background-color: var(--link-color);
@@ -238,28 +230,59 @@ button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-radius: 30px;
+  border-radius: 8px;
+  font-size: var(--body-font-size-xxs);
 }
 
-a.button:hover,
-a.button:focus,
-button:hover,
-button:focus {
+a.button:hover, a.button:focus, button:hover, button:focus  {
   background-color: var(--link-hover-color);
   cursor: pointer;
 }
 
-button:disabled,
-button:disabled:hover {
-  background-color: var(--light-color);
+button:disabled, button:disabled:hover {
+  background-color: var(--overlay-background-color);
   cursor: unset;
 }
 
-a.button.secondary,
-button.secondary {
+a.button.secondary, button.secondary {
   background-color: unset;
   border: 2px solid currentcolor;
+  color: var(--text-color)
+}
+
+main input {
+  font-size: 1.25rem;
+  width: 100%;
+  max-width: 50rem;
+  display: block;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 0.6rem;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  border: 1px solid var(--text-color);
   color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+main input:hover {
+  border: 1px solid var(--text-color);
+}
+
+main blockquote {
+  font-style: italic;
+  margin: 3rem;
+  text-indent: -1rem;
+  hanging-punctuation: first;
+}
+
+main blockquote p::before {
+  content: "“";
+  line-height: 0;
+}
+
+main blockquote p::after {
+  content: "”";
+  line-height: 0;
 }
 
 main img {
@@ -274,31 +297,82 @@ main img {
   width: 24px;
 }
 
-.icon img {
+.icon svg {
   height: 100%;
   width: 100%;
 }
 
-/* sections */
 main .section {
-  padding: 64px 16px;
+  padding: 0;
+  background-color: var(--background-color);
 }
 
-@media (width >=600px) {
+main .default-content-wrapper h2 {
+  font-family: georgia, times, serif;
+  font-size: 28px;
+  line-height: 36px;
+}
+
+main .default-content-wrapper p {
+  font-size: 18px;
+  line-height: 32px;
+}
+
+main .default-content-wrapper {
+  padding: 0 18px;
+}
+
+@media (min-width: 600px) {
   main .section {
-    padding: 64px 32px;
+    padding: var(--section-padding);
   }
 }
 
-@media (width >=900px) {
-  .section>div {
-    max-width: 1200px;
+@media (min-width: 900px) {
+  .section > div {
+    max-width: var(--section-max-width);
     margin: auto;
+  }
+
+  main .default-content-wrapper h2 {
+    font-family: georgia, times, serif;
+    font-size: var(--heading-font-size-l);
+    line-height: 36px;
+  }
+
+  main .default-content-wrapper p {
+    font-size: var(--body-font-size-s);
+    line-height: 32px;
   }
 }
 
 /* section metadata */
-main .section.light,
 main .section.highlight {
-  background-color: var(--light-color);
+  background-color: var(--highlight-background-color);
+}
+
+/** dm project **/
+main .dm-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+main .dm-placeholder > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+}
+
+main .dm-placeholder picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

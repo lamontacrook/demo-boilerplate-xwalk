@@ -1,0 +1,132 @@
+main .highlight .slider > div {
+  text-align: center;
+  color: var(--highlight-text-color);
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  transform-origin: center center;
+  transform: scale(1);
+  transition: transform 0.5s;
+  position: relative;
+  background-color: transparent;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+main .section.highlight-container>div {
+  max-width: var(--highlight-width);
+  padding: 0;
+}
+
+main .section.highlight-container {
+  margin: auto;
+}
+
+main .highlight {
+  background-color: var(--highlight-background-color);
+  position: relative;
+  height: var(--highlight-height);
+  text-align: center;
+}
+
+main .highlight .slider {
+  max-width: var(--highlight-slider-max-width);
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;  
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  margin: auto;
+  height: 90%;
+  overflow: hidden;
+}
+
+main .highlight > a {
+  display: inline-flex;
+  width: .7rem;
+  height: .7rem;
+  background: var(--highlight-text-color);
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 2px;
+  position: relative;
+}
+
+main .highlight > a:active {
+  top: 1px;
+}
+
+main .highlight > a:focus {
+  background: var(--link-hover-color);
+}
+
+main .highlight > a:current {
+  background-color: var(--link-selected-color);
+}
+
+main .highlight > a:hover {
+  background: var(--link-hover-color);
+}
+
+main .highlight .slide {
+  width: 100%;
+}
+
+main .highlight .slide h5 {
+  font-size: var(--heading-font-size-xl);
+}
+
+main .highlight .slide h4 {
+  font-size: var(--heading-font-size-m);
+}
+
+main .highlight .slide h2 {
+  margin: 0;
+  font-size: var(--heading-font-size-m);
+  font-weight: 500px;
+}
+
+main .highlight .slide p {
+  margin: 0;
+  font-size: var(--body-font-size-s);
+  font-weight: 400;
+  line-height: 24px;
+}
+
+main .highlight.gradient.toright {
+  right: unset;
+  left: 0;
+  background: linear-gradient(90deg, var(--gradient-background-end-color) 0%, var(--gradient-background-start-color) 40%, rgba(162 207 66 / 0%) 90%);
+}
+
+main .highlight.gradient.toleft {
+  right: 0;
+  left: unset;
+  background: linear-gradient(270deg, var(--gradient-background-end-color) 0%, var(--gradient-background-start-color) 40%, rgba(162 207 66 / 0%) 90%);
+}
+
+main .section.highlight-container .gradient {
+  background-color: var(--accent-color);
+}
+
+@media (min-width: 600px) {
+  main .section.highlight-container {
+    padding: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  main .highlight>div>div {
+    margin: 0 128px 0 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  main .highlight>div {
+    margin: 0 50px ;
+  }
+}

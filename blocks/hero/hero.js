@@ -16,6 +16,7 @@ export default function decorate(block) {
   block.querySelector('div').append(picture, heroContent);
   const templates = getMetadata('template').split(',').map((item) => item.trim());
   if (templates.includes('gradient')) {
+    console.log('gradient');
     const gradient = document.createElement('div');
     block.querySelector('div').append(gradient);
     templates.forEach((cls) => gradient.classList.add(cls));
