@@ -147,7 +147,11 @@ export function createOptimizedPicture(src, alt = '', eager = false, breakpoints
   // Fallback to createOptimizedPicture if src is not an absolute URL
   if (!isAbsoluteUrl) return libCreateOptimizedPicture(src, alt, eager, breakpoints);
 
-  const url = new URL(src);
+  let imgName = src.split('/').pop();
+  imgName = imgName.split(':').pop();
+
+  const url = new URL(`${src}/as/imgName.png`);
+
   const picture = document.createElement('picture');
   const { pathname } = url;
   const ext = pathname.substring(pathname.lastIndexOf('.') + 1);
@@ -160,6 +164,8 @@ export function createOptimizedPicture(src, alt = '', eager = false, breakpoints
     source.setAttribute('type', 'image/webp');
     const searchParams = new URLSearchParams(br);
     source.setAttribute('srcset', appendQueryParams(url, searchParams));
+    console.log('source', source.srcset);
+    console.log('searchParams', br);
     picture.appendChild(source);
   });
 
