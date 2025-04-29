@@ -21,7 +21,7 @@
       {
         "component": "custom-asset-namespace:custom-asset",
         "name": "image",
-        "label": "Image",
+        "label": "Image (DM)",
         "configUrl": "https://main--demo-boilerplate-xwalk--lamontacrook.hlx.page/tools/assets-selector/image.config.json",
         "valueType": "string"
       },
