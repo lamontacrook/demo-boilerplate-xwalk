@@ -143,7 +143,8 @@ export default async function decorate(block) {
           navSection.classList.add('nav-drop');
           // const key = navSection.textContent.split('\n').shift().toLowerCase().replace(' ', '-');
           let key = navSection.querySelector('p');
-          key = key.textContent.trim();
+          console.log(key);
+          key = key.textContent && key.textContent.trim();
           key = key.toLowerCase();
           key = key.replace(' ', '-');
 
