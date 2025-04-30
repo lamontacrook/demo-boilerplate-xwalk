@@ -225,10 +225,8 @@
     "fields": [
       {
         "component": "aem-content",
-        "valueType": "string",
         "name": "offer",
-        "label": "Offer",
-        "multi": false
+        "label": "Offer"
       }
     ]
   }
