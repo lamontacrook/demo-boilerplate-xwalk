@@ -1,7 +1,7 @@
 {
   "groups": [
     {
-      "title": "Default Content",
+      "title": "Default Content test",
       "id": "default",
       "components": [
         {
@@ -87,7 +87,7 @@
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
+                "resourceType": "core/franklin/components/contentfragments/v1/contentfragments",
                 "template": {
                   "model": "offer"
                 }

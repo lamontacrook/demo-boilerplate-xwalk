@@ -16,13 +16,7 @@
       "cards",
       "columns",
       "fragment",
-      "custom-asset-one"
-    ]
-  },
-  {
-
-    "id": "contentfragments",
-    "components": [
+      "custom-asset-one",
       "offer"
     ]
   },
