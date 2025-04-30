@@ -144,9 +144,12 @@ export default async function decorate(block) {
           // const key = navSection.textContent.split('\n').shift().toLowerCase().replace(' ', '-');
           let key = navSection.querySelector('p');
           console.log(key);
-          key = key.textContent && key.textContent.trim();
-          key = key.toLowerCase();
-          key = key.replace(' ', '-');
+          if (key) {
+            key = key.textContent.trim();
+            key = key.toLowerCase();
+            key = key.replace(' ', '-');
+          }
+
 
           const leftSpan = document.createElement('span');
           leftSpan.classList.add('left-span');
