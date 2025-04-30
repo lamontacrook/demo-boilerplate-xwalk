@@ -87,7 +87,7 @@
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/contentfragments/v1/contentfragments",
+                "resourceType": "core/franklin/components/offer/v1/offer",
                 "template": {
                   "model": "offer"
                 }
