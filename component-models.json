@@ -221,7 +221,7 @@
     ]
   },
   {
-    "id": "contentfragments",
+    "id": "offer",
     "fields": [
       {
         "component": "aem-content",
