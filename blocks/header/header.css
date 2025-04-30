@@ -273,7 +273,7 @@ header nav .nav-sections > ul > li[aria-expanded="true"] > ul > span.left-span {
     position: fixed;
     width: 100%;
     left: 0;
-    margin-top: 26px;
+    margin-top: 22px;
     background-color: var(--accent-background-color);
     white-space: initial;
   }

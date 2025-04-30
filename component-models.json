@@ -219,5 +219,17 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "contentfragments",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "offer",
+        "label": "Offer",
+        "multi": false
+      }
+    ]
   }
 ]
