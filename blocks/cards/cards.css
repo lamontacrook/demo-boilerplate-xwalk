@@ -1,3 +1,8 @@
+.cards > ul > li {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .section.cards-container > div > p::after {
   content: "----------";
   color: transparent;
@@ -71,12 +76,12 @@
   font-weight: 500;
 }
 
-.cards .cards-card-image {
+.cards .cards-card-image, .cards.gradient .cards-card-dm-image {
   line-height: 0;
   background-color: transparent;
 }
 
-.cards.gradient .cards-card-image {
+.cards.gradient .cards-card-image, .cards.gradient .cards-card-dm-image {
   border-bottom: var(--border-bottom);
   border-image-slice: var(--border-image-slice);
   border-image-source: linear-gradient(to right, var(--gradient-border-start-color), var(--gradient-border-start-color) 0%, var(--gradient-border-end-color) 100%, var(--highlight-background-color) 2%);;

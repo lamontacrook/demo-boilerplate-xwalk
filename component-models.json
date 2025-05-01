@@ -219,5 +219,15 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "offer",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "offer",
+        "label": "Offer"
+      }
+    ]
   }
 ]

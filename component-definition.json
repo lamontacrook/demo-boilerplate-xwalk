@@ -1,7 +1,7 @@
 {
   "groups": [
     {
-      "title": "Default Content",
+      "title": "Default Content test",
       "id": "default",
       "components": [
         {
@@ -71,6 +71,26 @@
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
                   "model": "section"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {"title": "Content Fragments",
+      "id": "contentfragments",
+      "components": [
+        {
+          "title": "Offer",
+          "id": "offer",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Offer",
+                  "model": "offer"
                 }
               }
             }
